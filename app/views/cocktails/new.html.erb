@@ -1,1 +1,19 @@
-<%= render 'form' %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <h1>New Cocktail</h1>
+      <%= render 'form' %>
+      <%= link_to 'Back', cocktails_path %>
+    </div>
+  </div>
+</div>
+
+
+<!-- The first div makes a container which centers content inside.
+The second container creates a bootsrap grid based on rows.
+The third div sets the column span, which visually organizes the columns in the
+bootstrap grid. The next tag, an h1, displays the text New Cocktail in large text.
+The erb in the next row renders the partial form from before. That form allows you
+to submit a new cocktail.
+Afterward, a link tag is provided with the text Back to take the user back to the
+main page using the cocktails_path, which routes them back to the cocktails index.-->

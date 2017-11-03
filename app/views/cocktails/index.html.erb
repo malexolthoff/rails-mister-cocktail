@@ -1,6 +1,23 @@
-<% @cocktails.each do |cocktail| %>
-  <h2> <%= cocktail.name %></h2>
-  <h4><%= link_to "Get the deets", cocktail_path(cocktail) %></h4>
-<% end %>
+<h1 class="text-center">Your cocktail list</h1>
 
-<%= link_to "Add more cocktails", new_cocktail_path %>
+<div class="text-center padded">
+  <%= link_to "Create a cocktail", new_cocktail_path, class: 'btn btn-primary' %>
+</div>
+
+<div class="container">
+  <div class="row">
+    <% @cocktails.each do |cocktail| %>
+      <p><%= link_to cocktail.name, cocktail_path(cocktail) %></p>
+    <% end %>
+  </div>
+</div>
+
+<!-- This h1 sets a large header to display the text Your cocktail list. The bootstrap class
+text-center centers the content of the tag.
+The first div surrounds a link. The class text-center centers the link, the new_cocktail_path establishes
+the path of the link, and the class btn, btn-primary sets the blue button blue.
+The next div creates a container which centers the content inside a nice container.
+The div below makes it a row, which means the contents of this div will be displayed in ordered rows.
+inside the erb, the instance variable @cocktails, which comes from the cocktails controller, is iterated over.
+a p tag is created which contains a link. Inside the link, the cocktail name is displayed as the text, and it
+is linked to that particular cocktail's show page. -->

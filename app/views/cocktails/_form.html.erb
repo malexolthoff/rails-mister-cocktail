@@ -1,11 +1,10 @@
 <%= simple_form_for(@cocktail) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :name %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <%= f.input :name, placeholder: "Caesar" %>
+  <%= f.button :submit, class: "btn btn-primary" %>
 <% end %>
+
+<!-- This is a simple form. It is specifically set for @cocktail, which ties its path to the cocktail variable.
+f.input :name sets the name of the cocktail, and placeholder sets the value Caesar as a background text
+until the user inputs text.
+f.button :submit creates a submit button with an associated post action. The class btn btn primary makes this submit
+a blue button -->

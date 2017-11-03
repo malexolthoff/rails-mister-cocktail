@@ -1,7 +1,6 @@
 class Ingredient < ApplicationRecord
-  validates :name, uniqueness: true
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
+
   has_many :doses
   has_many :cocktails, through: :doses
-
 end

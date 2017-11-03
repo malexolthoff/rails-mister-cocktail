@@ -1,10 +1,43 @@
-<h1><%= @cocktail.name %></h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <h1><%= @cocktail.name %></h1>
 
-<ul>
-<%= @cocktail.doses.each do |ingredient| %>
-  <li> <%= ingredient.description %></li>
-<% end %>
-</ul>
+      <ul class="list-unstyled">
+        <% @cocktail.doses.each do |dose| %>
+          <li><%= link_to dose.ingredient.name, ingredient_path(dose.ingredient) %> : <%= dose.description %>
+            <%= link_to "<i class='fa fa-close'></i>".html_safe, dose_path(dose), method: :delete, data: { confirm: "Are you sure?" } %></li>
+        <% end %>
+      </ul>
 
-<%= link_to "Add the ingredients", new_cocktail_dose_path(@cocktail) %>
-<%= link_to "Back to all cocktails", cocktails_path %>
+      <h2 class="text-center">Add a Dose</h2>
+
+      <% if @dose.errors.any? %>
+        <ul>
+          <% @dose.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <%= simple_form_for([@cocktail, @dose]) do |f| %>
+        <%= f.input :amount, as: :select, collection: ["1/8", "1/4", "1/3", "1/2", "2/3", "3/4", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], selected: @doses %>
+        <%= f.input :measurement, as: :select, collection: ["oz", "tbs", "tsp", "pinch", "shot", "dash", "piece", "cube", "leaf", "slice"].sort, selected: @doses %>
+        <%= f.input :ingredient_id, collection: @ingredients.order('name ASC') %>
+        <%= f.submit class: "btn btn-primary" %>
+      <% end %>
+
+      <%= link_to 'Back', cocktails_path %>
+    </div>
+  </div>
+</div>
+
+<!-- Here again we have a div container, which very nicely centers the content, followed by a div grid row
+followed by a div which sets up the grid's internal display.
+Next, there is an h1 tag, which contains erb that displays the name of a single cocktail which comes from the cocktail's controller and is specified based on the id passed into the url.
+There is an unordered list next with the bootstrap class list-unstyled, which displays an unstyled list that has no bullet points.
+The erb below iterates over any doses associated with the given cocktail and creates a list item for each one that includes a link to the name of the ingredient associated with the given dose, displaying that ingredient as the link text and setting its path as the desired path. There is then a colon. After the colon, there is a sign that more irb to display the dose description, an attribute of dose. This is followed by a link that displays an icon from font awesome, with html_safe to remove any surrounding quotres, along with the path for the link, which takes the user to the delete action of the dose controller. The method 'delete' is specified, and data is rendered in a pop up box prior to completing the delete action which asks the user if they are sure they would like to delete the content.
+The iteration is ended after the list item is closed, and the unoredered list is ended thereafter. -->
+
+
+<!-- An h2 which sets a text center and displays the text Add a Dose. The following lines of erb are meant to render a list of any errors that occur when a user attempts to input things into the simple form. First, an if statement checks to see if there were errors in the form. Next, if errors were present, an unordered list is generated. Next, the -->
